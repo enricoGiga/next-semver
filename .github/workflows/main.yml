@@ -6,8 +6,9 @@ jobs:
     name: A job to say hello
     steps:
       - uses: actions/checkout@v4
-      - name: Print working directory and github workspace
-        run: echo "The working directory is $PWD and the github workspace is $GITHUB_WORKSPACE"
+      - name: Print all the environment variables in the runner
+        run: env
+
       - name: Hello world action step
         id: hello
         uses: ./
