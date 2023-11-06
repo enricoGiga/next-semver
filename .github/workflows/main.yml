@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: ./
+        uses: ../../.action.yml
         with:
           who-to-greet: 'Enrico the great'
       # Use the output from the `hello` step
