@@ -9,7 +9,7 @@ jobs:
         run: pwd
       - name: Hello world action step
         id: hello
-        uses: ./
+        uses: actions/actions-exercises@v1
         with:
           who-to-greet: 'Enrico the great'
       # Use the output from the `hello` step
