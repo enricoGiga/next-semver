@@ -6,9 +6,8 @@ jobs:
     name: A job to say hello
     steps:
       - uses: actions/checkout@v4
-      - name: Print all the environment variables in the runner
-        run: env
-
+      - name: Print working directory and github workspace
+        run: echo "The working directory is $PWD "
       - name: Hello world action step
         id: hello
         uses: ./
@@ -16,4 +15,4 @@ jobs:
           who-to-greet: 'Enrico the great'
       # Use the output from the `hello` step
       - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }} "
+        run: echo "Hello ${{ steps.hello.inputs.who-to-greet }}. The time was ${{ steps.hello.outputs.time }} "
