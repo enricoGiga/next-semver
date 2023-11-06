@@ -5,11 +5,12 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to say hello
     steps:
+      - uses: actions/checkout@v2
       - name: Print working directory
         run: pwd
       - name: Hello world action step
         id: hello
-        uses: actions/actions-exercises@v1
+        uses: ./
         with:
           who-to-greet: 'Enrico the great'
       # Use the output from the `hello` step
