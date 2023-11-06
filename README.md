@@ -19,3 +19,7 @@ The time we greeted you.
 uses: actions/hello-world-docker-action@v2
 with:
   who-to-greet: 'Mona the Octocat'
+
+## How release a new version
+git tag -a -m "My first action release" v1
+git push --follow-tags
