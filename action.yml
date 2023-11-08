@@ -1,16 +1,21 @@
 # action.yml
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: Check consistency of version and tag
+description: Check if a version have already been released on GitHub Releases
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  config_file_path:
+    description: Path to configuration file containing the level of the version to be bumped
     required: true
-    default: 'World'
+  version_pattern:
+    description: >
+      Custom regular expression to find version with, defaults to
+      `(?i)^(__version__|VERSION) *= *([\'"])v?(?P<version>.+?)\2`
+    required: false
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  next_version:
+    description: The next version to be released
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.who-to-greet }}
+    - ${{ inputs.config_file_path }}

@@ -1,18 +1,19 @@
 on: [push]
 
 jobs:
-  hello_world_job:
+  get_new_version:
     runs-on: ubuntu-latest
     name: A job to say hello
     steps:
       - uses: actions/checkout@v4
-      - name: Print working directory and github workspace
-        run: echo "The working directory is $PWD "
-      - name: Hello world action step
-        id: hello
-        uses: enricoGiga/actions-exercises@v2
+      - name: Print the github ref
+        run: echo "The github ref is $GITHUB_REF "
+      - name: Get the updated version
+        id: get_version
+        uses: ./
+        # uses: enricoGiga/actions-exercises@v2
         with:
           who-to-greet: 'Enrico the great'
       # Use the output from the `hello` step
       - name: Get the output time and the input string
-        run: echo "Hello ${{ steps.hello.inputs.who-to-greet }}. The time was ${{ steps.hello.outputs.time }} "
+        run: echo "The new version is ${{ steps.hello.outputs.next_version }} "
