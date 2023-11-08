@@ -13,7 +13,7 @@ jobs:
         uses: ./
         # uses: enricoGiga/actions-exercises@v2
         with:
-          who-to-greet: 'Enrico the great'
+          config_file_path: 'foobar/config.cfg'
       # Use the output from the `hello` step
       - name: Get the output time and the input string
         run: echo "The new version is ${{ steps.hello.outputs.next_version }} "

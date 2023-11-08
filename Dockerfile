@@ -1,5 +1,10 @@
 FROM alpine:3.10
-COPY entrypoint.sh /app/entrypoint.sh
+
+COPY main.py /app/main.py
+COPY ./requirements.txt /app/requirements.txt
+
+RUN pip install -r /app/requirements.txt
+
 WORKDIR /app
-# Code file to execute when the docker container starts up (`entrypoint.sh`)
-ENTRYPOINT ["/app/entrypoint.sh"]
+
+CMD ["python", "/app/main.py"]
