@@ -10,7 +10,7 @@ jobs:
         run: echo "The working directory is $PWD "
       - name: Hello world action step
         id: hello
-        uses: enricoGiga/actions-exercises/v2
+        uses: enricoGiga/actions-exercises@v2
         with:
           who-to-greet: 'Enrico the great'
       # Use the output from the `hello` step
