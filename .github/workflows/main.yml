@@ -1,10 +1,14 @@
-on: [push]
+on: [ push ]
 
 jobs:
   get_new_version:
     runs-on: ubuntu-latest
-    name: A job to say hello
+
+    name: A job to get the new semantic version number
     steps:
+      - run: |
+          mkdir foobar
+          echo "[SEMVER]\nlevel = micro" > foobar/config.cfg
       - uses: actions/checkout@v4
       - name: Print the github ref
         run: echo "The github ref is $GITHUB_REF "

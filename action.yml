@@ -19,3 +19,4 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.config_file_path }}
+    - ${{ inputs.version_pattern }}
