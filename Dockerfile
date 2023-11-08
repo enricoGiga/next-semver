@@ -9,4 +9,4 @@ WORKDIR /app
 
 
 
-CMD ["python", "/app/main.py"]
+ENTRYPOINT ["python", "/app/main.py"]
