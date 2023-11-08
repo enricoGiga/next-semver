@@ -8,8 +8,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          mkdir foobar
-          echo "[SEMVER]\nlevel = micro" > foobar/config.cfg
+#          mkdir foobar
+#          echo "[SEMVER]\nlevel = micro" > foobar/config.cfg
           chmod +x foobar/config.cfg
 
       - name: Print the github ref
