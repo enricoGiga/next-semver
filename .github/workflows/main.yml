@@ -7,10 +7,7 @@ jobs:
     name: A job to get the new semantic version number
     steps:
       - uses: actions/checkout@v4
-      - run: |
-#          mkdir foobar
-#          echo "[SEMVER]\nlevel = micro" > foobar/config.cfg
-          chmod +x foobar/config.cfg
+      - run: chmod +x foobar/config.cfg
 
       - name: Print the github ref
         run: echo "The github ref is $GITHUB_REF "
