@@ -24,7 +24,7 @@ def read_config_file(config_file_path: Path) -> str:
     return configs
 
 
-def get_last_tag(semvar_level: str):
+def get_last_tag() -> Optional[Version]:
     headers = {
         "Authorization": f"Bearer {os.getenv('INPUT_REPO_TOKEN')}",
         "Accept": "application/vnd.github+json",
@@ -44,12 +44,7 @@ def get_last_tag(semvar_level: str):
             last_tag = re.sub('^v', '', last_tag.lower())
             return Version(last_tag)
         else:
-            if semvar_level == 'major':
-                return Version('1.0.0')
-            elif semvar_level == 'minor':
-                return Version('0.1.0')
-            elif semvar_level == 'micro':
-                return Version('0.0.1')
+            return None
 
     else:
         print(f"Request failed with status code {response.status_code}")
@@ -62,7 +57,7 @@ def check_environment_version():
     config_file_path = get_path_to_configuration_file()
     config_file = read_config_file(config_file_path)
     semvar_level = config_file['SEMVER']['level']
-    env_tag = get_last_tag(semvar_level)
+    env_tag = get_last_tag()
 
     new_version = get_new_version(env_tag, semvar_level)
 
@@ -77,6 +72,13 @@ def get_new_version(version: Version, semvar_level: str) -> Version:
     :param semvar_level: the semvar level
     :return: the incremented version
     """
+    if not version:
+        if semvar_level == 'major':
+            return Version('1.0.0')
+        elif semvar_level == 'minor':
+            return Version('0.1.0')
+        elif semvar_level == 'micro':
+            return Version('0.0.1')
     new_version = ""
     if semvar_level == 'major':
         new_version = f"{version.major + 1}.{0}.{0}"
