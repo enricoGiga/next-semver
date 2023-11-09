@@ -2,6 +2,9 @@
 name: Check consistency of version and tag
 description: Check if a version have already been released on GitHub Releases
 inputs:
+  repo_token:
+    description: 'The GitHub token to use for authentication'
+    required: true
   config_file_path:
     description: Path to configuration file containing the level of the version to be bumped
     required: true
@@ -20,3 +23,4 @@ runs:
   args:
     - ${{ inputs.config_file_path }}
     - ${{ inputs.version_pattern }}
+    - ${{ inputs.repo_token }}

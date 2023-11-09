@@ -25,6 +25,7 @@ jobs:
         # uses: enricoGiga/actions-exercises@v2
         with:
           config_file_path: 'foobar/config.cfg'
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
       # Use the output from the `hello` step
       - name: Get the output time and the input string
         run: echo "The new version is ${{ steps.hello.outputs.next_version }} "

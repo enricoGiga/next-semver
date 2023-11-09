@@ -26,7 +26,7 @@ def read_config_file(config_file_path: Path) -> str:
 
 def get_last_tag():
     headers = {
-        "Authorization": f"Bearer {os.getenv('GITHUB_TOKEN')}",
+        "Authorization": f"Bearer {os.getenv('INPUT_REPO_TOKEN')}",
         "Accept": "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28"
     }
@@ -37,7 +37,7 @@ def get_last_tag():
     if response.status_code == 200:
         tags = response.json()
         if tags:
-            # sorted_tags = sorted(tags, key=lambda x: version_key(x['name']), reverse=True)
+
             sorted_list = sorted(tags, key=lambda x: x['name'])
 
             last_tag = sorted_list[-1]['name']
