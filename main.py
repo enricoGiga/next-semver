@@ -1,6 +1,7 @@
 import configparser
 import os
 import re
+import subprocess
 from pathlib import Path
 from typing import Optional
 
@@ -23,8 +24,23 @@ def read_config_file(config_file_path: Path) -> str:
     return configs
 
 
+def get_last_tag():
+    try:
+        subprocess.run(['git', 'fetch'])
+        print("Git fetch completed.")
+        last_tag = subprocess.check_output(
+            ['git', 'describe', '--tags', '--abbrev=0']).decode('utf-8').strip()
+        last_tag = re.sub('^v', '', last_tag.lower())
+    except subprocess.CalledProcessError:
+        print("No tags found.")
+        last_tag = '0.0.0'
+    return Version(last_tag)
+
+
 def check_environment_version():
-    env_tag = get_env_version()
+    # env_tag = get_env_version()
+    env_tag = get_last_tag()
+
     config_file_path = get_path_to_configuration_file()
     config_file = read_config_file(config_file_path)
     semvar_level = config_file['SEMVER']['level']
@@ -47,7 +63,7 @@ def get_new_version(version: Version, semvar_level: str) -> Version:
     elif semvar_level == 'minor':
         new_version = f"{version.major}.{version.minor + 1}.{0}"
     elif semvar_level == 'micro':
-        new_version = f"{version.major}.{version.minor }.{version.micro + 1}"
+        new_version = f"{version.major}.{version.minor}.{version.micro + 1}"
 
     return Version(new_version)
 
