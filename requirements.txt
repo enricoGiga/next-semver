@@ -1,1 +1,2 @@
 packaging==21.3
+requests==2.26.0

@@ -4,7 +4,7 @@ import re
 import subprocess
 from pathlib import Path
 from typing import Optional
-
+import requests
 from packaging.version import Version
 
 DEFAULT_PATTERN = r'(?i)^(__version__|VERSION) *= *([\'"])v?(?P<version>.+?)\2'
@@ -25,16 +25,31 @@ def read_config_file(config_file_path: Path) -> str:
 
 
 def get_last_tag():
-    try:
-        subprocess.run(['git', 'fetch'])
-        print("Git fetch completed.")
-        last_tag = subprocess.check_output(
-            ['git', 'describe', '--tags', '--abbrev=0']).decode('utf-8').strip()
-        last_tag = re.sub('^v', '', last_tag.lower())
-    except subprocess.CalledProcessError:
-        print("No tags found.")
-        last_tag = '0.0.0'
-    return Version(last_tag)
+    headers = {
+        "Authorization": f"Bearer {os.getenv('GITHUB_TOKEN')}",
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28"
+    }
+
+    url = f"https://api.github.com/repos/{os.getenv('GITHUB_REPOSITORY')}/tags"
+    response = requests.get(url, headers=headers)
+
+    if response.status_code == 200:
+        tags = response.json()
+        if tags:
+            # sorted_tags = sorted(tags, key=lambda x: version_key(x['name']), reverse=True)
+            sorted_list = sorted(tags, key=lambda x: x['name'])
+
+            last_tag = sorted_list[-1]['name']
+            last_tag = re.sub('^v', '', last_tag.lower())
+            return Version(last_tag)
+        else:
+            return Version('0.0.0')
+
+    else:
+        print(f"Request failed with status code {response.status_code}")
+
+
 
 
 def check_environment_version():
