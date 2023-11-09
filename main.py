@@ -54,9 +54,10 @@ def get_last_tag() -> Optional[Version]:
 
 def check_environment_version():
     # env_tag = get_env_version()
-    config_file_path = get_path_to_configuration_file()
-    config_file = read_config_file(config_file_path)
-    semvar_level = config_file['SEMVER']['level']
+    # config_file_path = get_path_to_configuration_file()
+    # config_file = read_config_file(config_file_path)
+    # semvar_level = config_file['SEMVER']['level']
+    semvar_level = os.getenv('SEMVER_LEVEL')
     env_tag = get_last_tag()
 
     new_version = get_new_version(env_tag, semvar_level)
