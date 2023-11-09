@@ -1,4 +1,4 @@
-# Hello world docker action
+# semantic versioning action to get the next version to be released
 
 The versioning of this action follows the [semantic versioning](https://semver.org/) specification.
 
