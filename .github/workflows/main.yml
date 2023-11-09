@@ -13,11 +13,9 @@ jobs:
       - uses: actions/checkout@v4
       - run: chmod +x foobar/config.cfg
 
-      - name: Get last tag
-        id: last_tag
-        run: echo ::set-output name=tag::$(git describe --tags --abbrev=0)
+
       - name: Use the last tag
-        run: echo "The last tag is ${{ steps.last_tag.outputs.tag }}"
+        run: echo "The github repo is ${GITHUB_REPOSITORY}"
 
       - name: Print the github ref
         run: echo "The github ref is $GITHUB_REF "
