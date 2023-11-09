@@ -24,7 +24,7 @@ def read_config_file(config_file_path: Path) -> str:
     return configs
 
 
-def get_last_tag():
+def get_last_tag(semvar_level: str):
     headers = {
         "Authorization": f"Bearer {os.getenv('INPUT_REPO_TOKEN')}",
         "Accept": "application/vnd.github+json",
@@ -44,7 +44,12 @@ def get_last_tag():
             last_tag = re.sub('^v', '', last_tag.lower())
             return Version(last_tag)
         else:
-            return Version('0.0.0')
+            if semvar_level == 'major':
+                return Version('1.0.0')
+            elif semvar_level == 'minor':
+                return Version('0.1.0')
+            elif semvar_level == 'micro':
+                return Version('0.0.1')
 
     else:
         print(f"Request failed with status code {response.status_code}")
@@ -54,11 +59,11 @@ def get_last_tag():
 
 def check_environment_version():
     # env_tag = get_env_version()
-    env_tag = get_last_tag()
-
     config_file_path = get_path_to_configuration_file()
     config_file = read_config_file(config_file_path)
     semvar_level = config_file['SEMVER']['level']
+    env_tag = get_last_tag(semvar_level)
+
     new_version = get_new_version(env_tag, semvar_level)
 
     print(f"::set-output name=next_version::{str(new_version)}")
