@@ -37,7 +37,7 @@ The next version to be released based on the specified version bump level in the
 ## Example Usage
 
 ```yaml
-uses: enricoGiga/actions-exercises@v2
+uses: enricoGiga/next-semvar@v1.0.0
 with:
   repo_token: ${{ secrets.GITHUB_TOKEN }}
   config_file_path: './path/to/config/file.cfg'

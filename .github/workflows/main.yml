@@ -21,8 +21,8 @@ jobs:
         run: echo "The github ref is $GITHUB_REF "
       - name: Get the updated version
         id: get_version
-#        uses: ./
-        uses: enricoGiga/actions-exercises@v0.0.1
+        uses: ./
+#        uses: enricoGiga/next-semvar@v1.0.0
         with:
           config_file_path: 'foobar/config.cfg'
           repo_token: ${{ secrets.GITHUB_TOKEN }}
