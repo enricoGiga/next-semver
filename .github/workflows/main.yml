@@ -29,3 +29,16 @@ jobs:
       # Use the output from the `hello` step
       - name: Get the output time and the input string
         run: echo "The new version is ${{ steps.get_version.outputs.next_version }} "
+      - name: Create a new release
+        uses: actions/create-release@v1
+        id: create_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ steps.get_version.outputs.next_version }} # Set the new tag name
+          release_name: Release ${{ steps.get_version.outputs.next_version }} # Set the new release name
+          body: |
+            Changes in this Release
+            - New version number is ${{ steps.get_version.outputs.next_version }}
+          draft: false
+          prerelease: false

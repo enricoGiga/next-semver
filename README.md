@@ -10,22 +10,35 @@ Future versions will allow pre-release and post-release versions.
 * Micro — also known as bugfix version that includes fixing security vulnerabilities, etc.
 ## Inputs
 
-## `who-to-greet`
+# Get New Tag Version Action
 
-**Required** The name of the person to greet. Default `"World"`.
+This GitHub Action checks the last tag version released on GitHub and retrieves the next version to be released based on the specified version bump level in the configuration file.
 
+## Inputs
+
+### `repo_token`
+
+**Required** The GitHub token to use for authentication.
+
+### `config_file_path`
+
+**Required** Path to the configuration file containing the level of the version to be bumped.
+Example of configuration file if we want to increase the micro version:
+![configfile.png](images%2Fconfigfile.png)
+```yaml
+
+```yaml
 ## Outputs
 
-## `time`
+### `next_version`
 
-The time we greeted you.
+The next version to be released based on the specified version bump level in the configuration file.
 
-## Example usage
+## Example Usage
 
-uses: actions/hello-world-docker-action@v2
+```yaml
+uses: enricoGiga/actions-exercises@v2
 with:
-  who-to-greet: 'Mona the Octocat'
+  repo_token: ${{ secrets.GITHUB_TOKEN }}
+  config_file_path: './path/to/config/file.cfg'
 
-## How release a new version
-git tag -a -m "My first action release" v1
-git push --follow-tags
