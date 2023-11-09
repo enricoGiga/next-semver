@@ -7,7 +7,7 @@ on:
 jobs:
   get_new_version:
     runs-on: ubuntu-latest
-
+    permissions: write-all
     name: A job to get the new semantic version number
     steps:
       - uses: actions/checkout@v4
