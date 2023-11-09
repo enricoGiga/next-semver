@@ -18,3 +18,8 @@ runs:
   args:
     - ${{ inputs.repo_token }}
     - ${{ inputs.config_file_path }}
+
+
+branding:
+  icon: box
+  color: blue
