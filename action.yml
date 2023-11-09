@@ -5,9 +5,9 @@ inputs:
   repo_token:
     description: The GitHub token to use for authentication
     required: true
-  config_file_path:
-    description: Path to configuration file containing the level of the version to be bumped
-    required: true
+#  config_file_path:
+#    description: Path to configuration file containing the level of the version to be bumped
+#    required: true
 outputs:
   next_version:
     description: The next version to be released
@@ -17,7 +17,7 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.repo_token }}
-    - ${{ inputs.config_file_path }}
+#    - ${{ inputs.config_file_path }}
 
 
 branding:

@@ -15,7 +15,7 @@ Example: v1.0.0, 0.1.0, v0.0.1, etc
 
 This GitHub Action checks the last tag version released on GitHub and 
 retrieves the next version to be released based on the specified 
-version defined in the configuration file.
+version defined inside the environment variable **SEMVER_LEVEL**.
 
 ## Inputs
 
@@ -23,12 +23,10 @@ version defined in the configuration file.
 
 **Required** The GitHub token to use for authentication.
 
-### `config_file_path`
+### env
+SEMVER_LEVEL - The level of the version to be upgrade.
+The possible values are: **major, minor, micro**.
 
-**Required** Path to the configuration file containing the level of the version to be bumped.
-- Allowed values: major, minor, micro.
-- Example of configuration file if we want to increase the micro version:
-![configfile.png](images%2Fconfigfile.png)
 ## Outputs
 
 ### `next_version`
@@ -46,7 +44,8 @@ For example, if the level is micro, the first version will be 0.0.1.
 
 ```yaml
 uses: enricoGiga/next-semvar@v1.0.1
+env:
+  SEMVER_LEVEL: micro
 with:
   repo_token: ${{ secrets.GITHUB_TOKEN }}
-  config_file_path: './path/to/config/file.cfg'
 ```
