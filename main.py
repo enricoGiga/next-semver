@@ -42,6 +42,7 @@ def get_last_tag() -> Optional[Version]:
 
             last_tag = sorted_list[-1]['name']
             last_tag = re.sub('^v', '', last_tag.lower())
+            print(f"Last version: {last_tag}")
             return Version(last_tag)
         else:
             return None
@@ -65,7 +66,7 @@ def check_environment_version():
     print(f"::set-output name=next_version::{str(new_version)}")
 
 
-def get_new_version(version: Version, semvar_level: str) -> Version:
+def get_new_version(version: Optional[Version], semvar_level: str) -> Version:
     """
     Increment the version according to the semvar level
 
@@ -73,7 +74,8 @@ def get_new_version(version: Version, semvar_level: str) -> Version:
     :param semvar_level: the semvar level
     :return: the incremented version
     """
-    if not version:
+    if version is None:
+        print("No tags found")
         if semvar_level == 'major':
             return Version('1.0.0')
         elif semvar_level == 'minor':
@@ -87,7 +89,7 @@ def get_new_version(version: Version, semvar_level: str) -> Version:
         new_version = f"{version.major}.{version.minor + 1}.{0}"
     elif semvar_level == 'micro':
         new_version = f"{version.major}.{version.minor}.{version.micro + 1}"
-
+        print(f"New version: {new_version}")
     return Version(new_version)
 
 
