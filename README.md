@@ -43,7 +43,7 @@ For example, if the level is micro, the first version will be 0.0.1.
 ## Example Usage
 
 ```yaml
-uses: enricoGiga/next-semvar@v1.0.1
+uses: enricoGiga/next-semvar@v1.0.0
 env:
   SEMVER_LEVEL: micro
 with:
