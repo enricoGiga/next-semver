@@ -21,24 +21,25 @@ jobs:
         run: echo "The github ref is $GITHUB_REF "
       - name: Get the updated version
         id: get_version
-        uses: ./
-        # uses: enricoGiga/actions-exercises@0.0.1
+#        uses: ./
+        uses: enricoGiga/actions-exercises@0.0.1
         with:
           config_file_path: 'foobar/config.cfg'
           repo_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get the output time and the input string
         run: echo "The new version is ${{ steps.get_version.outputs.next_version }} "
-      - name: Create a new release
-        uses: actions/create-release@v1
-        id: create_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: v${{ steps.get_version.outputs.next_version }} # Set the new tag name
-          release_name: Release ${{ steps.get_version.outputs.next_version }} # Set the new release name
-          body: |
-            Changes in this Release
-            - New version number is ${{ steps.get_version.outputs.next_version }}
-          draft: false
-          prerelease: false
+#  UNCOMMENT THIS SECTION TO CREATE A NEW RELEASE
+#      - name: Create a new release
+#        uses: actions/create-release@v1
+#        id: create_release
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+#        with:
+#          tag_name: v${{ steps.get_version.outputs.next_version }} # Set the new tag name
+#          release_name: Release ${{ steps.get_version.outputs.next_version }} # Set the new release name
+#          body: |
+#            Changes in this Release
+#            - New version number is ${{ steps.get_version.outputs.next_version }}
+#          draft: false
+#          prerelease: false
