@@ -45,7 +45,7 @@ For example, if the level is micro, the first version will be 0.0.1.
 ## Example Usage
 
 ```yaml
-uses: enricoGiga/next-semvar@v1.0.0
+uses: enricoGiga/next-semvar@v1.0.1
 with:
   repo_token: ${{ secrets.GITHUB_TOKEN }}
   config_file_path: './path/to/config/file.cfg'
