@@ -28,4 +28,4 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
       # Use the output from the `hello` step
       - name: Get the output time and the input string
-        run: echo "The new version is ${{ steps.hello.outputs.next_version }} "
+        run: echo "The new version is ${{ steps.get_version.outputs.next_version }} "
