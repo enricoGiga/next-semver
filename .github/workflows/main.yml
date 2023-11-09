@@ -11,14 +11,6 @@ jobs:
     name: A job to get the new semantic version number
     steps:
       - uses: actions/checkout@v4
-      - run: chmod +x foobar/config.cfg
-
-
-      - name: Use the last tag
-        run: echo "The github repo is ${GITHUB_REPOSITORY}"
-
-      - name: Print the github ref
-        run: echo "The github ref is $GITHUB_REF "
       - name: Get the updated version
         id: get_version
         env:
