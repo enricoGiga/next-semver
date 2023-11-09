@@ -22,7 +22,7 @@ jobs:
       - name: Get the updated version
         id: get_version
 #        uses: ./
-        uses: enricoGiga/actions-exercises@0.0.1
+        uses: enricoGiga/actions-exercises@v0.0.1
         with:
           config_file_path: 'foobar/config.cfg'
           repo_token: ${{ secrets.GITHUB_TOKEN }}
