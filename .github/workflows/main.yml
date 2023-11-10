@@ -14,9 +14,9 @@ jobs:
       - name: Get the updated version
         id: get_version
         env:
-          SEMVER_LEVEL: major
+          SEMVER_LEVEL: micro
         uses: ./
-        #        uses: enricoGiga/next-semvar@v1.0.0
+        #        uses: enricoGiga/next-semvar@v1.0.1
         with:
           #      config_file_path: 'foobar/config.cfg'
           repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -35,6 +35,6 @@ jobs:
           body: |
             Changes in this Release
             - New version number is ${{ steps.get_version.outputs.next_version }}
-            - Description: Check the last tag version released on Github and get the next version to be released
+            - Description: Renamed micro with patch, added more documentation
           draft: false
           prerelease: false

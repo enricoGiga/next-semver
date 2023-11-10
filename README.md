@@ -1,21 +1,19 @@
-# semantic versioning action to get the next version to be released
-
-The versioning of this action follows the [semantic versioning](https://semver.org/) specification.
-
-Regex: ^v?(\d+)\.(\d+)\.(\d+)$
-Example: v1.0.0, 0.1.0, v0.0.1, etc
-## What is semantic versioning?
-`v<major>.<minor>.<micro>`
-* Major — increasing the major version usually breaks compatibility, allowing developers to remove the deprecated API or rework the existing ones. Users know about it and do not expect a smooth update.
-* Minor — version increment implies adding new functionality without breaking compatibility.
-* Micro — also known as bugfix version that includes fixing security vulnerabilities, etc.
-## Inputs
-
 # Get New Tag Version Action
 
 This GitHub Action checks the last tag version released on GitHub and 
 retrieves the next version to be released based on the specified 
 version defined inside the environment variable **SEMVER_LEVEL**.
+The versioning of this action follows the [semantic versioning](https://semver.org/) specification. 
+
+- Format allowed to create tags: `v<major>.<minor>.<patch>`
+- Regex: `^v?(\d+)\.(\d+)\.(\d+)$`
+- Examples: v1.0.0, 0.1.0, v0.0.1, etc
+
+## What is semantic versioning?
+`v<major>.<minor>.<patch>`
+* **Major** — increasing the major version usually breaks compatibility, allowing developers to remove the deprecated API or rework the existing ones. Users know about it and do not expect a smooth update.
+* **Minor** — version increment implies adding new functionality without breaking compatibility.
+* **patch** — also known as bugfix version that includes fixing security vulnerabilities, etc.
 
 ## Inputs
 
@@ -23,29 +21,40 @@ version defined inside the environment variable **SEMVER_LEVEL**.
 
 **Required** The GitHub token to use for authentication.
 
-### env
-SEMVER_LEVEL - The level of the version to be upgrade.
-The possible values are: **major, minor, micro**.
+
 
 ## Outputs
 
 ### `next_version`
 
-The next version to be released based on the specified version  level in the configuration file.
-Examples: 
-- if the previous version is 1.0.0 and the level is micro, the next version will be 1.0.1.
-- if the previous version is 1.0.0 and the level is minor, the next version will be 1.1.0.
-- if the previous version is 1.2.23 and the level is major, the next version will be 2.0.0.
+The next version you should release based on the latest version uploaded to GitHub. 
 
-If there is no previous version, the next version depends on the level specified in the configuration file.
-For example, if the level is micro, the first version will be 0.0.1.
+For example, if the last version released is on GitHub is 2.4.5 it will give you the following outputs:
+
+| SEMVER_LEVEL | LAST_VERSION | NEXT_VERSION |
+|--------------|--------------|--------------|
+| major        | 2.4.5        | 3.0.0        |
+| minor        | 2.4.5        | 2.5.0        |
+| patch        | 2.4.5        | 2.4.6        |
+
+If there is no previous version it will return the first version based on the specified version defined inside the environment variable **SEMVER_LEVEL**:
+
+| SEMVER_LEVEL | LAST_VERSION | NEXT_VERSION |
+|--------------|--------------|--------------|
+| major        | -            | 1.0.0        |
+| minor        | -            | 0.1.0        |
+| patch        | -            | 0.0.1        |
+
+## env
+**SEMVER_LEVEL** - The level of the version to be upgrade.
+The possible values are: `major | minor | patch`
 
 ## Example Usage
 
 ```yaml
-uses: enricoGiga/next-semvar@v1.0.0
+uses: enricoGiga/next-semvar@v1.0.1
 env:
-  SEMVER_LEVEL: micro
+  SEMVER_LEVEL: patch
 with:
   repo_token: ${{ secrets.GITHUB_TOKEN }}
 ```
