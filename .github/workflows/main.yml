@@ -14,7 +14,7 @@ jobs:
       - name: Get the updated version
         id: get_version
         env:
-          SEMVER_LEVEL: micro
+          SEMVER_LEVEL: patch
         uses: ./
         #        uses: enricoGiga/next-semvar@v1.0.1
         with:
