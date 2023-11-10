@@ -88,7 +88,7 @@ def get_new_version(version: Optional[Version], semvar_level: str) -> Version:
     elif semvar_level == 'minor':
         new_version = f"{version.major}.{version.minor + 1}.{0}"
     elif semvar_level == 'patch':
-        new_version = f"{version.major}.{version.minor}.{version.patch + 1}"
+        new_version = f"{version.major}.{version.minor}.{version.micro + 1}"
         print(f"New version: {new_version}")
     return Version(new_version)
 
